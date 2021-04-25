@@ -1,0 +1,130 @@
+
+ALGORITHM The sum of overlapping elements fisrt solution
+VAR
+
+    set1  : ARRAY_OF INTEGER[4];
+    set2 :  ARRAY_OF INTEGER[4];
+    i : INTEGER;
+    j : INTEGER;
+    sum :INTEGER;
+    
+BEGIN
+
+    FOR i FROM 0 TO set1.length-1 STEP 1  DO
+        FOR j FROM 0 TO set2.length-1 STEP 1  DO
+            IF (set1[i]=set2[j]) THEN
+                sum:=sum+set1[i]
+           END_IF
+        END_FOR
+    END_FOR
+    FOR i FROM 0 TO set2.length-1 STEP 1  DO
+        FOR j FROM 0 TO set1.length-1 STEP 1  DO
+            IF (set2[i]=set1[j]) THEN
+               sum:=sum+set2[i]
+            END_IF
+        END_FOR
+    END_FOR
+  write(sum)
+END 
+
+
+ALGORITHM The sum of overlapping elements second solution
+VAR
+   set1 : ARRAY_OF INTEGER[4];
+   set2 : ARRAY_OF INTEGER[4];
+   htab : HASH_TABLE<INTEGER,INTEGER>;
+   i : INTEGER;
+   sum : INTEGER := 0;
+   count :=1;
+BEGIN
+    FOR i FROM 0 TO set1.length-1 STEP 1  DO
+        htab.insert(set1[i],count)
+    END_FOR
+    FOR i FROM 0 TO set2.length STEP 1  DO
+        IF (htab.lookup(set2[i])=true) THEN
+            k:=htab.get(set2[i])
+            htab.insert(set2[i],count+1)
+        ELSE
+            htab.insert(set2[i],count)
+        END_IF
+    END_FOR
+  FOR i FROM 0 TO set1.length-1 STEP 1  DO
+      IF (htab.lookup(set1[i]=true)) THEN
+          if (htab.get(set1[i])>1) THEN
+          sum:=sum + htab.get(set1[i]+set1[i])
+          END_IF
+      END_IF
+  END_FOR
+  write sum
+END
+
+
+ALGORITHM The sum of all distinct elements first solution
+VAR
+
+    set1  : ARRAY_OF INTEGER[4];
+    set2 :  ARRAY_OF INTEGER[5];
+    bool : BOOLEAN;
+    i : INTEGER;
+    j : INTEGER;
+    sum :INTEGER;
+    
+BEGIN
+
+    FOR i FROM 0 TO set1.length-1 STEP 1  DO
+        bool=true;
+        FOR j FROM 0 TO set2.length-1 STEP 1  DO
+            IF (set1[i]=set2[j]) THEN
+                bool=false
+           END_IF
+        END_FOR
+            IF (bool=true) THEN
+                sum:=sum+set1[i]
+            END_IF
+    END_FOR
+    FOR i FROM 0 TO set2.length-1 STEP 1  DO
+        bool=true;
+        FOR j FROM 0 TO set1.length-1 STEP 1  DO
+            IF (set2[i]=set1[j]) THEN
+                bool=false
+            END_IF
+        END_FOR
+        IF (bool=true) THEN
+            sum:=sum+set2[i]
+        END_IF
+    END_FOR
+  write(sum)
+END 
+
+ALGORITHM  The sum of all distinct elements second solution
+VAR
+    set1  : ARRAY_OF INTEGER[4];
+    set2 :  ARRAY_OF INTEGER[5];
+    bool : BOOLEAN;
+    i : INTEGER;
+    j : INTEGER;
+    sum :INTEGER:=0;
+BEGIN
+    FOR i FROM 0 TO set1.length-1 STEP 1  DO
+        htab.insert(set1[i],count)
+    END_FOR
+    FOR i FROM 0 TO set2.length STEP 1  DO
+        IF (htab.lookup(set2[i])=true) THEN
+            k:=htab.get(set2[i])
+            htab.insert(set2[i],count+1)
+        ELSE
+            htab.insert(set2[i],count)
+        END_IF
+    END_FOR
+    FOR i FROM 0 TO set1.length STEP 1  DO
+        IF (htab.get(set1[i]=1)) THEN
+            sum:=sum+set1[i]
+        END_IF
+    END_FOR
+    FOR j FROM 0 TO set2.length-1 STEP 1  DO
+        IF (htab.get(set2[j])=1) THEN
+            sul:=sum+set2[j]
+        END_IF
+    END_FOR
+    write sum
+END
